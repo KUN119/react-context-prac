@@ -4,7 +4,6 @@ import { OrderContext } from '../../context/OrderContext';
 
 export default function OrderPage({ setStep }) {
   const [orderData] = useContext(OrderContext);
-  console.log(orderData);
 
   return (
     <div>
