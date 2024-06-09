@@ -1,7 +1,11 @@
 import React from 'react'
 
-export default function Products({name, imagePath}) {
-    console.log(name, imagePath);
+export default function Products({name, imagePath, updateItemCount}) {
+
+    const handleChange = (e) => {
+        const currentValue = e.target.value
+        updateItemCount(name, currentValue)
+    }
 
     return (
         <>
@@ -20,6 +24,7 @@ export default function Products({name, imagePath}) {
                             name='quantity'
                             min='0'
                             defaultValue={0}
+                            onChange={handleChange}
                         />
                     </label>
                 </form>

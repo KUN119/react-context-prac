@@ -9,7 +9,7 @@ export default function Type({ orderType }) {
     const [items, setItems] = useState([]);
     const [error, setError] = useState(false);
     const [orderData, updateItemCount] = useContext(OrderContext);
-    
+
     useEffect(() => {
       loadItems(orderType);
     }, [orderType])
@@ -30,6 +30,7 @@ export default function Type({ orderType }) {
             key={item.name}
             name={item.name}
             imagePath={item.imagePath}
+            updateItemCount={(itemName, newItemCount) => updateItemCount(itemName, newItemCount, orderType)}
         />
     ))
 
