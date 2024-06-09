@@ -1,39 +1,43 @@
-import React from 'react'
-import images from '../assets/images/image';
-
-const 여행상품모음 = [
-    {id: 1, name: 'Korea', src: images[0]},
-    {id: 2, name: 'Japan', src: images[1]},
-    {id: 3, name: 'Vientnam', src: images[2]},
-    {id: 4, name: 'Philippines', src: images[3]},
-]
+import React, { useEffect, useState } from 'react'
+import axios from 'axios';
+import Options from './Options';
+import Products from './Products';
 
 export default function Type({ orderType }) {
-    if(orderType === 'products'){
-        return (
-            <>
-                <section>
-                    <h1>Products</h1>
-                    <p>Productss total: </p>
-                    <section className='flex'>
-                        {여행상품모음.map(여행상품 => (
-                            <li className='list-none flex-col mr-10 border-solid' key={여행상품.id}>
-                                <img src={여행상품.src} className='rounded-full w-40 h-40' />
-                                <div className='flex items-center'>
-                                    <p>{여행상품.name}:</p>
-                                    <input className='flex ml-2' type="number" />
-                                </div>
-                            </li>
-                        ))}
-                    </section>
-                </section>
-            </>
-        )
-    }
+    // const [countChecked, setCountChecked] = useState(0);
+    const [items, setItems] = useState([])
 
-    if(orderType === 'options'){
-        return (
-            <div>Type</div>
-        )
+    useEffect(() => {
+      loadItems(orderType);
+    }, [orderType])
+
+    const loadItems = async (orderType) => {
+        try {
+            await axios.get(`http://localhost:4000/${orderType}`)
+            .then(response => setItems(response.data))
+        } catch (error) {
+            console.log(error);
+        }
     }
+    
+    const ItemComponent = orderType === 'products' ? Products : Options;
+
+    const optionItems = items.map(item => (
+        <ItemComponent 
+            key={item.name}
+            name={item.name}
+            imagePath={item.imagePath}
+        />
+    ))
+
+    return (
+        <div>
+            <h2>주문 종류</h2>
+            <p>하나의 가격</p>
+            <p>총 가격:</p>
+            <div className={orderType === 'options' ? 'flex-col' : 'flex'}>
+                {optionItems}
+            </div>
+        </div>
+    )
 }
