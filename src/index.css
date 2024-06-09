@@ -1,10 +1,18 @@
 @tailwind base;
 @tailwind components;
-@layer base {
+/* @layer base {
     input[type="number"]::-webkit-inner-spin-button,
     input[type="number"]::-webkit-outer-spin-button {
       -webkit-appearance: none;
       margin: 0;
     }
-  }
+  } */
 @tailwind utilities;
+
+table, td, th {
+  border: 1px solid black;
+}
+
+td, th {
+  padding: 10px;
+}
