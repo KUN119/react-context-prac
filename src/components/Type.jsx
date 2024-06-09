@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import Options from './Options';
 import Products from './Products';
+import ErrorBanner from './ErrorBanner';
 
 export default function Type({ orderType }) {
-    // const [countChecked, setCountChecked] = useState(0);
-    const [items, setItems] = useState([])
+    const [items, setItems] = useState([]);
+    const [error, setError] = useState(false);
 
     useEffect(() => {
       loadItems(orderType);
@@ -16,7 +17,7 @@ export default function Type({ orderType }) {
             await axios.get(`http://localhost:4000/${orderType}`)
             .then(response => setItems(response.data))
         } catch (error) {
-            console.log(error);
+            setError(true)
         }
     }
     
@@ -29,6 +30,10 @@ export default function Type({ orderType }) {
             imagePath={item.imagePath}
         />
     ))
+
+    if(error) {
+        return (<ErrorBanner message='에러가 발생했습니다.'/>)
+    }
 
     return (
         <div>
