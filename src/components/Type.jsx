@@ -42,7 +42,7 @@ export default function Type({ orderType }) {
         <div>
             <h2>주문 종류</h2>
             <p>하나의 가격</p>
-            <p>총 가격: {orderData.totals[orderType]}</p>
+            <p>총 가격: ₩{orderData.totals[orderType].toLocaleString()}</p>
             <div className={orderType === 'options' ? 'flex-col' : 'flex'}>
                 {optionItems}
             </div>
