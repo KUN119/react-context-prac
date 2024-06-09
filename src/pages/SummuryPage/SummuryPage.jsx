@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-export default function SummuryPage() {
+export default function SummuryPage({ setStep }) {
   const [checkbox, setCheckbox] = useState(false);
 
   return (
@@ -18,6 +18,7 @@ export default function SummuryPage() {
         <br />
         <button
           disabled={!checkbox}
+          onClick={() => setStep(2)}
         >
           주문 확인
         </button>
